@@ -14,27 +14,40 @@ afterEach(() => {
 describe("AuthenticationService", () => {
   test("登録済みの未ログインユーザがログインできる", async () => {
     // Given
-    const userAccountRepository: UserAccountRepository = new UserAccountRepositoryInMemory();
-    const sessionRepository: SessionRepository = new SessionRepositoryInMemory();
-    const authenticationService: AuthenticationService = AuthenticationService.create(userAccountRepository, sessionRepository);
+    const userAccountRepository: UserAccountRepository =
+      new UserAccountRepositoryInMemory();
+    const sessionRepository: SessionRepository =
+      new SessionRepositoryInMemory();
+    const authenticationService: AuthenticationService =
+      AuthenticationService.create(userAccountRepository, sessionRepository);
     const userAccount = UserAccount.of(
       UserAccountId.of("taro@gmail.com"),
-      "Yamada", "Taro", "password",
+      "Yamada",
+      "Taro",
+      "password",
     );
     await userAccountRepository.save(userAccount);
     // When
-    const [s, u] = await authenticationService.login(userAccount.id.value, userAccount.password);
+    const [s, u] = await authenticationService.login(
+      userAccount.id.value,
+      userAccount.password,
+    );
     // Then
     expect(u).toBe(userAccount);
     expect(s.userAccountId).toBe(userAccount.id);
   });
   test("登録されていないユーザはログインできない", async () => {
     // Given
-    const userAccountRepository: UserAccountRepository = new UserAccountRepositoryInMemory();
-    const sessionRepository: SessionRepository = new SessionRepositoryInMemory();
-    const authenticationService: AuthenticationService = AuthenticationService.create(userAccountRepository, sessionRepository);
+    const userAccountRepository: UserAccountRepository =
+      new UserAccountRepositoryInMemory();
+    const sessionRepository: SessionRepository =
+      new SessionRepositoryInMemory();
+    const authenticationService: AuthenticationService =
+      AuthenticationService.create(userAccountRepository, sessionRepository);
     // When
     // Then
-    await expect(authenticationService.login("taro@gmail.com", "password")).rejects.toThrow("User not found");
+    await expect(
+      authenticationService.login("taro@gmail.com", "password"),
+    ).rejects.toThrow("User not found");
   });
 });

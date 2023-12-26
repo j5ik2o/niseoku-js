@@ -11,21 +11,28 @@ afterEach(() => {
 describe("SessionRepositoryInMemory", () => {
   test("セッションを登録できる", async () => {
     // Given
-    const repository = new SessionRepositoryInMemory();
-    const session = Session.of(
-      SessionId.generate(),
-      UserAccountId.generate(),
-    );
+    const repository = SessionRepositoryInMemory.create();
+    const session = Session.of(SessionId.generate(), UserAccountId.generate());
     // When
     await repository.save(session);
     // Then
     const actual = await repository.findById(session.id);
     expect(actual).toBe(session);
-  })
-  test("セッションを検索する(ID)", () => {
-    fail();
   });
-  test("セッションを検索する(FullName)", () => {
-    fail();
+  test("セッションを検索する(ID)", async () => {
+    const session = Session.of(SessionId.generate(), UserAccountId.generate());
+    const repository = SessionRepositoryInMemory.create(
+      new Map([[session.id, session]]),
+    );
+    const actual = await repository.findById(session.id);
+    expect(actual).toBe(session);
   });
-})
+  test("セッションを削除する", async () => {
+    const session = Session.of(SessionId.generate(), UserAccountId.generate());
+    const repository = SessionRepositoryInMemory.create(
+      new Map([[session.id, session]]),
+    );
+    const actual = await repository.deleteById(session.id);
+    expect(actual).toBeTruthy();
+  });
+});

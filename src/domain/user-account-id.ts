@@ -16,7 +16,7 @@ class UserAccountId {
   }
 
   static generate(): UserAccountId {
-    return UserAccountId.of(ulid())
+    return UserAccountId.of(ulid());
   }
 }
 

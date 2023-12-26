@@ -51,7 +51,9 @@ describe("Money", () => {
   test("通貨単位が異なる場合は減算できない", () => {
     const money1 = Money.ofJPY(1000);
     const money2 = Money.ofUSD(1000);
-    expect(() => money1.subtract(money2)).toThrowError("Currencies must be same");
+    expect(() => money1.subtract(money2)).toThrowError(
+      "Currencies must be same",
+    );
   });
 
   test("通貨単位が同じ場合は乗算できる", () => {

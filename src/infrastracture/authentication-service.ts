@@ -13,20 +13,19 @@ class AuthenticationService {
 
   private constructor(
     private userAccountRepository: UserAccountRepository,
-    private sessionRepository: SessionRepository
-  ) {
-  }
+    private sessionRepository: SessionRepository,
+  ) {}
 
   static create(
     userAccountRepository: UserAccountRepository,
-    sessionRepository: SessionRepository
+    sessionRepository: SessionRepository,
   ): AuthenticationService {
     return new AuthenticationService(userAccountRepository, sessionRepository);
   }
 
   async login(
     email: string,
-    password: string
+    password: string,
   ): Promise<[Session, UserAccount]> {
     return this.userAccountRepository
       .findById(UserAccountId.of(email))
