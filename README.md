@@ -38,6 +38,30 @@ TDD、DDD、リファクタリング、デザインパターンなどの実践�
 - 事前課題1) ユーザアカウント関連ストーリのテストと実装を確認してください。
     - [user-account.test.ts](src/domain/user-account.test.ts)
     - [user-account-repository.test.ts](src/infrastructure/memory/user-account-repository-in-memory.test.ts)
-    - `$ make test` でテストを実行できます
 - 事前課題2) ユーザ認証周りストーリのテストと実装を確認してください
     - [authentication-service.test.ts](src/infrastructure/authentication-service.test.ts)
+
+## プログラム内容
+
+想定のユーザーストーリは[こちら](docs/TODO.md)
+
+- 1日目は、ユーザ認証のストーリをモブプログラミングで実装していきます(2時間)
+    - 事前課題の確認
+    - 参加者はナビゲーターになり、講師がドライバーで説明する
+    - TDDのサイクル(RED,GREEN,REFACTORING)を体験する
+    - ディフェクトインサーション
+    - 仮実装
+    - 三角測量
+    - 明白な実装
+- 2日目は、オークション関連のストーリをモブプログラミングで実装していきます(2時間)
+    - 参加者でチームを構成する。チームごとにブランチを切って作業してもらいます。
+    - 1回7分の[モブタイマー](https://mobti.me/)を使って、ドライバ＆ナビゲーターを交互に交代する
+    - TDDを実践する
+- 3日目は、オークション関連のストーリをモブプログラミングで実装していきます(2時間)
+    - 2日目の続きを行う
+    - リファクタリング・テクニック
+        - 問い合わせと更新の分離(書き込みと読み込みを同時にしない)
+- 4日目は、オークション関連のストーリをモブプログラミングで実装していきます(2時間)
+    - 3日目の続きとデザインパターンでリファクタリングする
+        - Decorator
+        - Chain of Reponsibility
