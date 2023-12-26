@@ -8,15 +8,15 @@ class SessionRepositoryInMemory implements SessionRepository {
   readonly symbol: typeof symbolSessionRepositoryInMemory =
     symbolSessionRepositoryInMemory;
 
-  private sessions = new Map<SessionId, Session>();
+  private sessions = new Map<string, Session>();
   async findById(id: SessionId): Promise<Session | undefined> {
-    return this.sessions.get(id);
+    return this.sessions.get(id.value);
   }
   async save(session: Session): Promise<void> {
-    this.sessions.set(session.id, session);
+    this.sessions.set(session.id.value, session);
   }
   async deleteById(sessionId: SessionId): Promise<void> {
-    this.sessions.delete(sessionId);
+    this.sessions.delete(sessionId.value);
   }
 }
 

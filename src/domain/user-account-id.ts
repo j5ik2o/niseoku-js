@@ -1,3 +1,5 @@
+import { ulid } from "ulid";
+
 const symbolUserAccountId = Symbol("UserAccountId");
 
 class UserAccountId {
@@ -11,6 +13,10 @@ class UserAccountId {
 
   static of(value: string): UserAccountId {
     return new UserAccountId(value);
+  }
+
+  static generate(): UserAccountId {
+    return UserAccountId.of(ulid())
   }
 }
 

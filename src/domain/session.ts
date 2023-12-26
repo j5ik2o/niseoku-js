@@ -5,11 +5,13 @@ const symbolSession = Symbol("Session");
 
 class Session {
   readonly symbol: typeof symbolSession = symbolSession;
-
-  constructor(
+  private constructor(
     readonly id: SessionId,
     readonly userAccountId: UserAccountId,
   ) {}
+  static of(id: SessionId, userAccountId: UserAccountId): Session {
+    return new Session(id, userAccountId);
+  }
 }
 
 export { Session };

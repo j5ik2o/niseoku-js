@@ -5,7 +5,7 @@ const symbolUserAccount = Symbol("UserAccount");
 class UserAccount {
   readonly symbol: typeof symbolUserAccount = symbolUserAccount;
 
-  constructor(
+  private constructor(
     readonly id: UserAccountId,
     readonly firstName: string,
     readonly lastName: string,
@@ -17,6 +17,15 @@ class UserAccount {
     if (!lastName) {
       throw new Error("UserAccount must have lastName");
     }
+  }
+
+  static of(
+    id: UserAccountId,
+    firstName: string,
+    lastName: string,
+    password: string,
+  ): UserAccount {
+    return new UserAccount(id, firstName, lastName, password);
   }
 
   isPasswordCorrect(password: string): boolean {

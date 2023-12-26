@@ -31,7 +31,7 @@ class Money {
 
   add(other: Money): Money {
     if (this.currency !== other.currency) {
-      throw new Error("通貨単位が異なります");
+      throw new Error("Currencies must be same");
     }
     return new Money(this.amount + other.amount, this.currency);
   }
@@ -46,7 +46,7 @@ class Money {
 
   divide(divisor: number): Money {
     if (divisor === 0) {
-      throw new Error("ゼロで割ることはできません");
+      throw new Error("Cannot divide by zero");
     }
     return new Money(this.amount / divisor, this.currency);
   }

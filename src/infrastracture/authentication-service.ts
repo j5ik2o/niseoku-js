@@ -13,30 +13,33 @@ class AuthenticationService {
 
   private constructor(
     private userAccountRepository: UserAccountRepository,
-    private sessionRepository: SessionRepository,
-  ) {}
+    private sessionRepository: SessionRepository
+  ) {
+  }
 
   static create(
     userAccountRepository: UserAccountRepository,
-    sessionRepository: SessionRepository,
+    sessionRepository: SessionRepository
   ): AuthenticationService {
     return new AuthenticationService(userAccountRepository, sessionRepository);
   }
 
   async login(
     email: string,
-    password: string,
+    password: string
   ): Promise<[Session, UserAccount]> {
     return this.userAccountRepository
       .findById(UserAccountId.of(email))
       .then((userAccount) => {
-        if (userAccount !== undefined && userAccount.password === password) {
-          const session = new Session(SessionId.generate(), userAccount.id);
-          this.sessionRepository.save(session);
-          return [session, userAccount];
-        } else {
+        if (userAccount === undefined) {
+          throw new Error("User not found");
+        }
+        if (userAccount.password !== password) {
           throw new Error("Invalid credentials");
         }
+        const session = Session.of(SessionId.generate(), userAccount.id);
+        this.sessionRepository.save(session);
+        return [session, userAccount];
       });
   }
 

@@ -10,16 +10,16 @@ class UserAccountRepositoryInMemory implements UserAccountRepository {
   readonly symbol: typeof symbolUserAccountRepositoryInMemory =
     symbolUserAccountRepositoryInMemory;
 
-  private userAccounts = new Map<UserAccountId, UserAccount>();
+  private userAccounts = new Map<string, UserAccount>();
 
   async findById(id: UserAccountId): Promise<UserAccount | undefined> {
-    return this.userAccounts.get(id);
+    return this.userAccounts.get(id.value);
   }
   async save(userAccount: UserAccount): Promise<void> {
-    this.userAccounts.set(userAccount.id, userAccount);
+    this.userAccounts = this.userAccounts.set(userAccount.id.value, userAccount);
   }
   async deleteById(userAccountId: UserAccountId): Promise<void> {
-    this.userAccounts.delete(userAccountId);
+    this.userAccounts.delete(userAccountId.value);
   }
 }
 
