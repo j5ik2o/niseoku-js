@@ -1,5 +1,7 @@
+const symbolUserAccountId = Symbol("UserAccountId");
+
 class UserAccountId {
-  static readonly brand: unique symbol = Symbol("UserAccountId");
+  readonly symbol: typeof symbolUserAccountId = symbolUserAccountId;
 
   private constructor(readonly value: string) {
     if (!value) {

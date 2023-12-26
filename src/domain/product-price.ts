@@ -1,8 +1,11 @@
 import { CurrencyCode, Money } from "./money";
 
+const symbolProductPrice = Symbol("ProductPrice");
+
 class ProductPrice {
   static MAX_AMOUNT = 1000_000_000;
   static MIN_AMOUNT = 0;
+  readonly symbol: typeof symbolProductPrice = symbolProductPrice;
   constructor(readonly value: Money) {
     if (value.amount < ProductPrice.MIN_AMOUNT) {
       throw new Error(

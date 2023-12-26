@@ -1,7 +1,9 @@
 import { ulid } from "ulid";
 
+const symbolProductId = Symbol("ProductId");
+
 class ProductId {
-  static readonly brand: unique symbol = Symbol("ProductId");
+  readonly symbol: typeof symbolProductId = symbolProductId;
 
   private constructor(readonly value: string) {
     if (!value) {

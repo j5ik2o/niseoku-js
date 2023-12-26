@@ -4,8 +4,10 @@ import { ProductName } from "./product-name";
 
 type ProductType = "Generic" | "DownloadSoftware" | "Car";
 
+const symbolProduct = Symbol("Money");
+
 class Product {
-  static readonly brand: unique symbol = Symbol("Product");
+  readonly symbol: typeof symbolProduct = symbolProduct;
 
   private constructor(
     readonly id: ProductId,

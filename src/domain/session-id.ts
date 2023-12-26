@@ -1,7 +1,10 @@
 import { ulid } from "ulid";
 
+const symbolSessionId = Symbol("SessionId");
+
 class SessionId {
-  static readonly brand: unique symbol = Symbol("SessionId");
+  readonly symbol: typeof symbolSessionId = symbolSessionId;
+
   private constructor(readonly value: string) {}
 
   static of(value: string): SessionId {

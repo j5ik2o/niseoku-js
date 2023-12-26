@@ -1,8 +1,11 @@
 import { SessionId } from "./session-id";
 import { UserAccountId } from "./user-account-id";
 
+const symbolSession = Symbol("Session");
+
 class Session {
-  static readonly brand: unique symbol = Symbol("Session");
+  readonly symbol: typeof symbolSession = symbolSession;
+
   constructor(
     readonly id: SessionId,
     readonly userAccountId: UserAccountId,

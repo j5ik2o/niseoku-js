@@ -1,8 +1,9 @@
 type CurrencyCode = "USD" | "EUR" | "JPY";
 
-class Money {
-  static readonly brand: unique symbol = Symbol("Money");
+const symbolMoney = Symbol("Money");
 
+class Money {
+  readonly symbol: typeof symbolMoney = symbolMoney;
   private constructor(
     readonly amount: number,
     readonly currency: CurrencyCode,
@@ -49,6 +50,7 @@ class Money {
     }
     return new Money(this.amount / divisor, this.currency);
   }
+
   abs(): Money {
     return new Money(Math.abs(this.amount), this.currency);
   }
@@ -78,6 +80,22 @@ class Money {
       throw new Error("通貨単位が異なります");
     }
     return this.amount - other.amount;
+  }
+
+  isGreaterThan(other: Money): boolean {
+    return this.compare(other) > 0;
+  }
+
+  isGreaterThanOrEqual(other: Money): boolean {
+    return this.compare(other) >= 0;
+  }
+
+  isLessThan(other: Money): boolean {
+    return this.compare(other) < 0;
+  }
+
+  isLessThanOrEqual(other: Money): boolean {
+    return this.compare(other) <= 0;
   }
 
   toString(): string {

@@ -1,7 +1,10 @@
 import { UserAccountId } from "./user-account-id";
 
+const symbolUserAccount = Symbol("UserAccount");
+
 class UserAccount {
-  static readonly brand: unique symbol = Symbol("UserAccount");
+  readonly symbol: typeof symbolUserAccount = symbolUserAccount;
+
   constructor(
     readonly id: UserAccountId,
     readonly firstName: string,
