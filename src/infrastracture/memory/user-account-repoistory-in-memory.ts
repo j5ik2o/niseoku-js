@@ -27,6 +27,13 @@ class UserAccountRepositoryInMemory implements UserAccountRepository {
   async findById(id: UserAccountId): Promise<UserAccount | undefined> {
     return this.userAccounts.get(id.value);
   }
+
+  async findByFullName(fullName: string): Promise<UserAccount | undefined> {
+   return Array.from(this.userAccounts.values()).find(
+      (userAccount) => userAccount.fullName === fullName,
+    );
+  }
+
   async save(userAccount: UserAccount): Promise<void> {
     this.userAccounts = this.userAccounts.set(
       userAccount.id.value,

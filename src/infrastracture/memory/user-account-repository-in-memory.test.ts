@@ -23,7 +23,7 @@ describe("UserAccountRepositoryInMemory", () => {
     const actual = await repository.findById(userAccount.id);
     expect(actual).toBe(userAccount);
   });
-  test("ユーザアカウントを検索する", async () => {
+  test("ユーザアカウントを検索する(ID)", async () => {
     // Given
     const userAccount = UserAccount.of(
       UserAccountId.generate(),
@@ -36,6 +36,22 @@ describe("UserAccountRepositoryInMemory", () => {
     );
     // When
     const actual = await repository.findById(userAccount.id);
+    // Then
+    expect(actual).toBe(userAccount);
+  });
+  test("ユーザアカウントを検索する(FullName)", async () => {
+    // Given
+    const userAccount = UserAccount.of(
+      UserAccountId.generate(),
+      "Yamada",
+      "Taro",
+      "password",
+    );
+    const repository = UserAccountRepositoryInMemory.create(
+      new Map([[userAccount.id, userAccount]]),
+    );
+    // When
+    const actual = await repository.findByFullName(userAccount.fullName);
     // Then
     expect(actual).toBe(userAccount);
   });

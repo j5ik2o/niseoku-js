@@ -25,6 +25,7 @@ class SessionRepositoryInMemory implements SessionRepository {
     return this.sessions.get(id.value);
   }
 
+
   async save(session: Session): Promise<void> {
     this.sessions.set(session.id.value, session);
   }
