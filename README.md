@@ -45,6 +45,7 @@ $ npm install
 ```
 $ npm run test
 ```
+テストは未実装のものがあるので大半がfailします。
 - 事前課題1) ユーザアカウント関連ストーリのテストと実装を確認してください。
     - [user-account.test.ts](src/domain/user-account.test.ts)
     - [user-account-repository.test.ts](src/infrastructure/memory/user-account-repository-in-memory.test.ts)
