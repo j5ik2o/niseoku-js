@@ -34,6 +34,8 @@ TDD、DDD、リファクタリング、デザインパターンなどの実践�
 
 - 以下の環境を事前にセットアップしておいてください
     - Node.js(20.5.0以降)
+        - おすすめは [asdf](https://asdf-vm.com/)
+        - [Node.jsのプラグイン](https://github.com/asdf-vm/asdf-nodejs) が使えます 
     - VSCode or WebStorm
 - 依存関係の解決
 ```
