@@ -33,8 +33,16 @@ TDD、DDD、リファクタリング、デザインパターンなどの実践�
 ## 事前課題
 
 - 以下の環境を事前にセットアップしておいてください
-    - Node.js
+    - Node.js(20.5.0以降)
     - VSCode or WebStorm
+- 依存関係の解決
+```
+$ npm install
+```
+- テストを実行する
+```
+$ npm run test
+```
 - 事前課題1) ユーザアカウント関連ストーリのテストと実装を確認してください。
     - [user-account.test.ts](src/domain/user-account.test.ts)
     - [user-account-repository.test.ts](src/infrastructure/memory/user-account-repository-in-memory.test.ts)
