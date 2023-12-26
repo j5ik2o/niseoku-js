@@ -42,7 +42,7 @@ class AuthenticationService {
       });
   }
 
-  async logout(sessionId: SessionId): Promise<void> {
+  async logout(sessionId: SessionId): Promise<boolean> {
     return this.sessionRepository.deleteById(sessionId);
   }
 }

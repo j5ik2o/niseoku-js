@@ -15,9 +15,9 @@ describe("AuthenticationService", () => {
   test("登録済みの未ログインユーザがログインできる", async () => {
     // Given
     const userAccountRepository: UserAccountRepository =
-      new UserAccountRepositoryInMemory();
+      UserAccountRepositoryInMemory.create();
     const sessionRepository: SessionRepository =
-      new SessionRepositoryInMemory();
+      SessionRepositoryInMemory.create();
     const authenticationService: AuthenticationService =
       AuthenticationService.create(userAccountRepository, sessionRepository);
     const userAccount = UserAccount.of(
@@ -38,10 +38,8 @@ describe("AuthenticationService", () => {
   });
   test("登録されていないユーザはログインできない", async () => {
     // Given
-    const userAccountRepository: UserAccountRepository =
-      new UserAccountRepositoryInMemory();
-    const sessionRepository: SessionRepository =
-      new SessionRepositoryInMemory();
+    const userAccountRepository: UserAccountRepository = UserAccountRepositoryInMemory.create();
+    const sessionRepository: SessionRepository = SessionRepositoryInMemory.create();
     const authenticationService: AuthenticationService =
       AuthenticationService.create(userAccountRepository, sessionRepository);
     // When
@@ -50,4 +48,47 @@ describe("AuthenticationService", () => {
       authenticationService.login("taro@gmail.com", "password"),
     ).rejects.toThrow("User not found");
   });
+  test("登録済みユーザがパスワードを間違うとログインできない", async () => {
+    const userAccountRepository: UserAccountRepository = UserAccountRepositoryInMemory.create();
+    const sessionRepository: SessionRepository = SessionRepositoryInMemory.create();
+    const authenticationService: AuthenticationService =
+      AuthenticationService.create(userAccountRepository, sessionRepository);
+    const userAccount = UserAccount.of(
+      UserAccountId.of("taro@gmail.com"),
+      "Yamada",
+      "Taro",
+      "password",
+    );
+    await userAccountRepository.save(userAccount);
+    // When
+    // Then
+    await expect(authenticationService.login(
+      userAccount.id.value,
+      "wrong password",
+    )).rejects.toThrow("Invalid credentials");
+  })
+  test("登録済みのログイン済みユーザがログアウトできる", async () => {
+    // Given
+    const userAccountRepository: UserAccountRepository =
+      UserAccountRepositoryInMemory.create();
+    const sessionRepository: SessionRepository =
+      SessionRepositoryInMemory.create();
+    const authenticationService: AuthenticationService =
+      AuthenticationService.create(userAccountRepository, sessionRepository);
+    const userAccount = UserAccount.of(
+      UserAccountId.of("taro@gmail.com"),
+      "Yamada",
+      "Taro",
+      "password",
+    );
+    await userAccountRepository.save(userAccount);
+    const [s] = await authenticationService.login(
+      userAccount.id.value,
+      userAccount.password,
+    );
+    // When
+    const result = await authenticationService.logout(s.id);
+    // Then
+    expect(result).toBeTruthy()
+  })
 });
