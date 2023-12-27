@@ -12,8 +12,8 @@ class AuthenticationService {
     symbolAuthenticationService;
 
   private constructor(
-    private userAccountRepository: UserAccountRepository,
-    private sessionRepository: SessionRepository,
+    private readonly userAccountRepository: UserAccountRepository,
+    private readonly sessionRepository: SessionRepository,
   ) {}
 
   static create(

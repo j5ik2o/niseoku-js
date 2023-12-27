@@ -77,7 +77,7 @@ class Money {
 
   compare(other: Money): number {
     if (this.currency !== other.currency) {
-      throw new Error("通貨単位が異なります");
+      throw new Error("Currencies must be same");
     }
     return this.amount - other.amount;
   }
