@@ -23,17 +23,28 @@ describe("Auction", () => {
     expect(() => new Auction("1", startDate, endDate)).toThrow();
   });
   test("オークションを開始する", () => {
+    const now = new Date();
+    const startDate = now;
+    const endDate = now;
+    startDate.setHours(startDate.getHours() + 1);
+    endDate.setHours(endDate.getHours() + 10);
+    let auction = new Auction("1", startDate, endDate, false, now);
+    const now1 = startDate;
+    now1.setSeconds(startDate.getSeconds() + 1)
+    auction = auction.start(now1);
+    expect(auction.isStarted).toBe(true);
+  });
+  test("開始時刻前にオークションを開始できない", () => {
+    const now = new Date();
     const startDate = new Date();
     const endDate = new Date();
     startDate.setHours(startDate.getHours() + 1);
     endDate.setHours(endDate.getHours() + 10);
-    let auction = new Auction("1", startDate, endDate);
-    auction = auction.start();
-    expect(auction.isStarted).toBe(true);
+    const auction = new Auction("1", startDate, endDate, false, now);
+    const now1 = startDate;
+    now1.setSeconds(startDate.getSeconds() + 1)
+    expect(() => auction.start(now1)).toThrow();
   });
-  // test("開始時刻前にオークションを開始できない", () => {
-  //   fail();
-  // });
   // test("オークションが開始していない場合は、入札できない", () => {
   //   fail();
   // });
