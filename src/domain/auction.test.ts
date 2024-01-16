@@ -13,6 +13,9 @@ class Auction {
     if (startDateTime < new Date()) {
       throw new Error("開始時刻が過去です");
     }
+    if (endDateTime < startDateTime) {
+      throw new Error("終了時刻が開始時刻より過去です");
+    }
   }
 }
 
