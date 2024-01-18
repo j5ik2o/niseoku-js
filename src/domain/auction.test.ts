@@ -45,9 +45,17 @@ describe("Auction", () => {
     now1.setSeconds(now1.getSeconds() - 1)
     expect(() => auction.start(now1)).toThrow();
   });
-  // test("オークションが開始していない場合は、入札できない", () => {
-  //   fail();
-  // });
+  test("オークションが開始していない場合は、入札できない", () => {
+    const now = new Date();
+    const startDate = new Date();
+    const endDate = new Date();
+    startDate.setHours(startDate.getHours() + 1);
+    endDate.setHours(endDate.getHours() + 10);
+    const auction = new Auction("1", startDate, endDate, false, now);
+    const now1 = new Date(startDate);
+    now1.setSeconds(now1.getSeconds() - 1)
+    expect(() => auction.bid(100)).toThrow();
+  });
   // test("最高額にてオークションに入札する", () => {
   //   fail();
   // });

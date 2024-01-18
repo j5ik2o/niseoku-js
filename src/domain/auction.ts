@@ -19,4 +19,11 @@ export class Auction {
       throw new Error("終了時刻が開始時刻より過去です");
     }
   }
+
+  bid(_price: number): Auction {
+    if (!this.isStarted) {
+      throw new Error("オークションが開始していません");
+    }
+    return this
+  }
 }
