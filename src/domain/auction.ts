@@ -1,11 +1,5 @@
 export class Auction {
-  start(now: Date = new Date()): Auction {
-    if (this.startDateTime > now) {
-      throw new Error("開始時刻前にオークションを開始できません");
-    }
-    return new Auction(this.id, this.startDateTime, this.endDateTime, 100, true);
-  }
-  constructor(
+  private constructor(
     readonly id: string,
     readonly startDateTime: Date,
     readonly endDateTime: Date,
@@ -20,6 +14,25 @@ export class Auction {
     if (endDateTime < startDateTime) {
       throw new Error("終了時刻が開始時刻より過去です");
     }
+  }
+
+  static create(
+    id: string,
+    startDateTime: Date,
+    endDateTime: Date,
+    startBidPrice: number,
+    isStarted: boolean = false,
+    now: Date = new Date(),
+    bidPrice: number = 0,
+  ): Auction {
+    return new Auction(id, startDateTime, endDateTime, startBidPrice, isStarted, now, bidPrice);
+  }
+
+  start(now: Date = new Date()): Auction {
+    if (this.startDateTime > now) {
+      throw new Error("開始時刻前にオークションを開始できません");
+    }
+    return new Auction(this.id, this.startDateTime, this.endDateTime, 100, true);
   }
 
   bid(_price: number): Auction {
