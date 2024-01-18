@@ -39,7 +39,7 @@ export class Auction {
     if (!this.isStarted) {
       throw new Error("オークションが開始していません");
     }
-    if (_price < this.bidPrice) {
+    if (_price <= this.bidPrice) {
       throw new Error("現在の最高額より低い金額で入札することはできません");
     }
     if (this.startBidPrice < _price) {

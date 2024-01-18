@@ -88,6 +88,21 @@ describe("Auction", () => {
 
     expect(() => startedAuction.bid(104)).toThrow();
   });
+  test("同じ価格で２回入札できない", () => {
+    const now = new Date();
+    const startDate = new Date();
+    const endDate = new Date();
+    startDate.setHours(startDate.getHours() + 1);
+    endDate.setHours(endDate.getHours() + 10);
+    const auction = Auction.create("1", startDate, endDate, 100, false, now);
+    const now1 = new Date(startDate);
+    now1.setSeconds(startDate.getSeconds() + 1)
+    
+    const startedAuction = auction.start(now1).bid(105);
+    expect(startedAuction.bidPrice).toBe(105);
+
+    expect(() => startedAuction.bid(105)).toThrow();
+  })
   // test("オークションを終了できる_落札者が存在する場合", () => {
   //   fail();
   // });
