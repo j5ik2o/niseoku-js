@@ -9,8 +9,9 @@ export class Auction {
     readonly id: string,
     readonly startDateTime: Date,
     readonly endDateTime: Date,
+    readonly startBidPrice: number,
     readonly isStarted: boolean = false,
-    readonly now: Date = new Date()
+    readonly now: Date = new Date(),
   ) {
     if (startDateTime < now) {
       throw new Error("開始時刻が過去です");

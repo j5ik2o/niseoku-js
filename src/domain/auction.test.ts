@@ -13,14 +13,14 @@ describe("Auction", () => {
   test("開始時刻が過去の場合は、オークションは作成できない", () => {
     const past = new Date();
     past.setHours(past.getHours() - 1);
-    expect(() => new Auction("1", past, new Date())).toThrow();
+    expect(() => new Auction("1", past, new Date(), 100)).toThrow();
   });
   test("終了時刻が開始時刻より過去の場合は、オークションは作成できない", () => {
     const startDate = new Date();
     const endDate = new Date();
     startDate.setHours(startDate.getHours() + 1);
     endDate.setHours(endDate.getHours() - 1);
-    expect(() => new Auction("1", startDate, endDate)).toThrow();
+    expect(() => new Auction("1", startDate, endDate, 100)).toThrow();
   });
   test("オークションを開始する", () => {
     const now = new Date();
@@ -28,7 +28,7 @@ describe("Auction", () => {
     const endDate = now;
     startDate.setHours(startDate.getHours() + 1);
     endDate.setHours(endDate.getHours() + 10);
-    let auction = new Auction("1", startDate, endDate, false, now);
+    let auction = new Auction("1", startDate, endDate, 100, false, now);
     const now1 = startDate;
     now1.setSeconds(startDate.getSeconds() + 1)
     auction = auction.start(now1);
@@ -40,7 +40,7 @@ describe("Auction", () => {
     const endDate = new Date();
     startDate.setHours(startDate.getHours() + 1);
     endDate.setHours(endDate.getHours() + 10);
-    const auction = new Auction("1", startDate, endDate, false, now);
+    const auction = new Auction("1", startDate, endDate, 100, false, now);
     const now1 = new Date(startDate);
     now1.setSeconds(now1.getSeconds() - 1)
     expect(() => auction.start(now1)).toThrow();
@@ -51,14 +51,23 @@ describe("Auction", () => {
     const endDate = new Date();
     startDate.setHours(startDate.getHours() + 1);
     endDate.setHours(endDate.getHours() + 10);
-    const auction = new Auction("1", startDate, endDate, false, now);
+    const auction = new Auction("1", startDate, endDate, 100, false, now);
     const now1 = new Date(startDate);
     now1.setSeconds(now1.getSeconds() - 1)
     expect(() => auction.bid(100)).toThrow();
   });
-  // test("最高額にてオークションに入札する", () => {
-  //   fail();
-  // });
+  test("最高額にてオークションに入札する", () => {
+    const now = new Date();
+    const startDate = new Date();
+    const endDate = new Date();
+    startDate.setHours(startDate.getHours() + 1);
+    endDate.setHours(endDate.getHours() + 10);
+    const auction = new Auction("1", startDate, endDate, 100, false, now);
+    const now1 = new Date(startDate);
+    now1.setSeconds(now1.getSeconds() - 1)
+    
+    const auction = auction.bid(100);
+  });
   // test("最高額より少ない価格では入札できない", () => {
   //   fail();
   // });
