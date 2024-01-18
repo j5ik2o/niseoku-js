@@ -72,10 +72,6 @@ describe("Auction", () => {
     
     const startedAuction = auction.start(now1).bid(105);
     expect(startedAuction.bidPrice).toBe(105);
-
-    const newStartedAuction = startedAuction.bid(101);
-    // TODO: 落ちない
-    expect(newStartedAuction.bidPrice).toBe(101);
   });
   // test("最高額より少ない価格では入札できない", () => {
   //   fail();
