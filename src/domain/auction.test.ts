@@ -7,7 +7,7 @@ afterEach(() => {
 
 describe("Auction", () => {
   test("初期化できる（作成できる）", () => {
-    const auction = new Auction("1", new Date(), new Date());
+    const auction = new Auction("1", new Date(), new Date(), 100);
     expect(auction.id).toBe("1");
   });
   test("開始時刻が過去の場合は、オークションは作成できない", () => {
@@ -64,9 +64,10 @@ describe("Auction", () => {
     endDate.setHours(endDate.getHours() + 10);
     const auction = new Auction("1", startDate, endDate, 100, false, now);
     const now1 = new Date(startDate);
-    now1.setSeconds(now1.getSeconds() - 1)
+    now1.setSeconds(now1.getSeconds() + 1)
     
-    const auction = auction.bid(100);
+    const startedAuction = auction.start().bid(100);
+    expect(startedAuction.bidPrice).toBe(100);
   });
   // test("最高額より少ない価格では入札できない", () => {
   //   fail();

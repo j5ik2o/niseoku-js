@@ -3,7 +3,7 @@ export class Auction {
     if (this.startDateTime > now) {
       throw new Error("開始時刻前にオークションを開始できません");
     }
-    return new Auction(this.id, this.startDateTime, this.endDateTime, true);
+    return new Auction(this.id, this.startDateTime, this.endDateTime, 100, true);
   }
   constructor(
     readonly id: string,
@@ -12,6 +12,7 @@ export class Auction {
     readonly startBidPrice: number,
     readonly isStarted: boolean = false,
     readonly now: Date = new Date(),
+    readonly bidPrice: number = 0,
   ) {
     if (startDateTime < now) {
       throw new Error("開始時刻が過去です");
@@ -24,6 +25,9 @@ export class Auction {
   bid(_price: number): Auction {
     if (!this.isStarted) {
       throw new Error("オークションが開始していません");
+    }
+    if (this.startBidPrice < _price) {
+      return new Auction(this.id, this.startDateTime, this.endDateTime, this.startBidPrice, this.isStarted, this.now, _price);
     }
     return this
   }
